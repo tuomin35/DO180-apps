@@ -19,9 +19,10 @@ ADD nexus-2.14.3-02-bundle.tar.gz ${NEXUS_HOME}/
 COPY ./nexus-start.sh ${NEXUS_HOME}
 
 RUN ln -s ${NEXUS_HOME}/nexus-${NEXUS_VERSION} ${NEXUS_HOME}/nexus2 && \
-    chown -R nexus:nexus ${NEXUS_HOME}
+    chown -R nexus:nexus ${NEXUS_HOME} && \
+    chmod -R 755 ${NEXUS_HOME}
 
 USER nexus
 WORKDIR ${NEXUS_HOME}
 VOLUME ["/opt/nexus/sonatype-work"]
-ENTRYPOINT ["${NEXUS_HOME}/nexus-start.sh"]
+CMD ["sh", "nexus-start.sh"]
